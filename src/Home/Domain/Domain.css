@@ -1,0 +1,35 @@
+.domainContainer {
+    width: 20%;
+    float: left;
+    border-color: #0000001a;
+    border-right-style: solid;
+    border-right-width: 1px;
+
+}
+
+.domainSection {
+    position:sticky;
+    top:128px;
+    height:86vh
+}
+
+.iconClass {
+    font-size:1rem;
+    vertical-align:-0.175em;
+    width:1rem;
+    height:1rem;
+    box-sizing:content-box;
+}
+
+.ld {
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    font: normal normal normal 16px / 1 ui-icons;
+}
+
+.sectionBreak {
+    border: 0;
+    border-bottom: .0625rem solid #e3e4e5;
+    margin: 0;
+    width: 100%;
+}
