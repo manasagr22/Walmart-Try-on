@@ -9,9 +9,24 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import SideNav from '../Home/Cart/SideNav';
+import cartimg from '../assets/cart_sample1.jpg'
 
 export default function Navbar() {
     const [itemCount, setItemCount] = useState(0);
+    const [isSideNavOpen, setIsSideNavOpen] = useState(false); // State to manage SideNav visibility
+    const toggleSideNav = () => {
+        setIsSideNavOpen(!isSideNavOpen);
+    };
+
+    const cartItems = [
+        {
+            id: 1,
+            image: cartimg,
+            deliveryDate: "Delivery by: Aug 15, 2024",
+            cost: 1500
+        }
+    ];
 
     return (
         <div className='navbar'>
@@ -50,8 +65,8 @@ export default function Navbar() {
                     </div>
                     <div className='flex-col justify-center items-center'>
                         <div className='relative'>
-                            <AddShoppingCartIcon sx={{ color: "white", fontWeight: "21px" }} />
-                            <div className='itemCount'>{itemCount}</div>
+                        <AddShoppingCartIcon sx={{ color: 'white', fontWeight: '21px' }} onClick={toggleSideNav} />
+                        <div className='itemCount'>{itemCount}</div>
                         </div>
                         <p className='text-white size'>$0.00</p>
                     </div>
@@ -94,6 +109,7 @@ export default function Navbar() {
                     </nav>
                 </div>
             </div>
+            <SideNav isOpen={isSideNavOpen} onClose={toggleSideNav} cartItems={cartItems}/>
         </div>
     )
 }
