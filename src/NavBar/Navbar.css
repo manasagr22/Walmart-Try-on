@@ -31,6 +31,13 @@
     position: absolute;
 }
 
+/* .addressArrow {
+    position: absolute;
+    right: 6px;
+    top: 13px;
+    transition: transform 0.3s ease;
+} */
+
 .addressClass {
     padding-left: 38px;
     height: 100%;
@@ -47,6 +54,28 @@
     font-size: 15px;
 }
 
+.addressDropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    max-height: 200px;
+    overflow-y: auto;
+    padding: 1px;
+    box-sizing: border-box;
+}
+
+.addressDropdown .plus-icon {
+    position: absolute;
+    bottom: -15px;
+    right: 10px;
+    cursor: pointer;
+}
 .inputClass {
     height: 100%;
     width: 98%;

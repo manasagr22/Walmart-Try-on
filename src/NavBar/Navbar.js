@@ -9,14 +9,27 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import AddIcon from '@mui/icons-material/Add';
 import SideNav from '../Home/Cart/SideNav';
 import cartimg from '../assets/cart_sample1.jpg'
+import AddressCard from '../Home/Card/AddressCard'
 
 export default function Navbar() {
     const [itemCount, setItemCount] = useState(0);
-    const [isSideNavOpen, setIsSideNavOpen] = useState(false); // State to manage SideNav visibility
+    const [isSideNavOpen, setIsSideNavOpen] = useState(false);
+    const [isAddressDropdownOpen, setIsAddressDropdownOpen] = useState(false);
+
     const toggleSideNav = () => {
         setIsSideNavOpen(!isSideNavOpen);
+    };
+
+    const toggleAddressDropdown = () => {
+        setIsAddressDropdownOpen(!isAddressDropdownOpen);
+    };
+
+    const arrowStyle = {
+        transition: 'transform 0.3s ease',
+        transform: isAddressDropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)',
     };
 
     const cartItems = [
@@ -28,6 +41,7 @@ export default function Navbar() {
         }
     ];
 
+
     return (
         <div className='navbar'>
             <header className='flex items-center justify-evenly pa3' style={{ height: "80px" }}>
@@ -38,10 +52,22 @@ export default function Navbar() {
                         <div className='addressContainer font-sm'>
                             <p className='text-white font-bold'>{ADDRESS_PLACEHOLDER_TEXT}</p>
                             <p className='text-white'>{ADDRESS_TEXT}</p>
+                            
                         </div>
+                        {isAddressDropdownOpen && (
+                            <div className='addressDropdown'>
+                                {/* Example addresses */}
+                                <AddressCard address="123 Main St" />
+                                <AddressCard address="456 Elm St" />
+                                <AddressCard address="789 Oak St" />
+                                <AddIcon className='plus-icon' sx={{ color: 'black' }} onClick={() => {/* Handle add address */}} />
+                            </div>
+                        )}
                     </div>
-                    <KeyboardArrowDownIcon sx={{ color: "white", position: "absolute", right: "6px", top: "13px" }} />
-                </div>
+                    <KeyboardArrowDownIcon 
+                        sx={{ color: 'white', position: 'absolute', right: '10px', top: '13px', ...arrowStyle }} 
+                        onClick={toggleAddressDropdown}
+                    />                </div>
                 <div style={{ height: "64%", width: "60%", position: "relative" }}>
                     <input type='search' className='inputClass' placeholder={PLACEHOLDER_TEXT} />
                     <button type='button' className='search'>
