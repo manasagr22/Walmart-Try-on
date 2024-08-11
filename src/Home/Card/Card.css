@@ -1,0 +1,129 @@
+.card-container {
+    max-width: 320px;
+    background: none;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+  }
+  
+  .card-image {
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+    position: relative;
+  }
+  
+  .wishlist-icon {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 10;
+  }
+  
+  .hollow-heart-icon,
+  .filled-heart-icon {
+    font-size: 24px;
+    color: red;
+    cursor: pointer;
+  }
+  
+  .card-content {
+    padding: 16px;
+    background-color: white;
+  }
+  
+  .card-details {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+  
+  .card-cost {
+    color: green;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .card-try-it-now {
+    font-size: 0.875rem;
+    background: linear-gradient(45deg, #1d4ed8, #7c3aed);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .custom-spark-icon {
+    width: 20px;
+    height: 20px;
+    margin-left: 4px;
+  }
+  
+  .card-title {
+    font-size: 1.2rem;
+    color: #333;
+    margin-top: 4px;
+  }
+  
+  .card-description {
+    font-size: 0.9rem;
+    color: #555;
+    margin-top: 10px;
+    text-align: left;
+  }
+  
+  .card-extra {
+    margin-top: 10px;
+    color: #333;
+    font-size: 0.9rem;
+    text-align: left;
+  }
+  
+  .card-rating {
+    color: #ff9800;
+    margin-bottom: 4px;
+  }
+  
+  .card-delivery {
+    color: black;
+  }
+  
+  .card-buttons {
+    margin-top: 16px;
+    display: flex;
+    justify-content: flex-start;
+  }
+  
+  .card-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 12px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: white;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+  }
+  
+  .add-to-cart-btn {
+    background-color: #1d4ed8;
+  }
+  
+  .add-to-cart-btn:hover {
+    background-color: #1e40af;
+  }
+  
+  .buy-btn {
+    background-color: #10b981;
+    margin-left: auto;
+  }
+  
+  .buy-btn:hover {
+    background-color: #059669;
+  }
+  

@@ -15,6 +15,19 @@ export default function Main() {
     setShowPopup(false);
   };
 
+  const products = {
+    product1: {
+      image: polo1,
+      cost: "1499",
+      rating: "4.5",
+      deliveryDate: "25th Aug 2024",
+      title: "Men's Classic Polo Shirt",
+      description: "A stylish and comfortable polo shirt made from high-quality cotton. Perfect for casual wear.",
+      isInWishlist: true
+    },
+    // Add more products as needed
+  };
+
   return (
     <div className='relative' style={{ width: "80%" }}>
       <div className='flex flex-col justify-start text-black'>
@@ -39,7 +52,11 @@ export default function Main() {
         </div>
         <section>
           <div className='flex flex-wrap w-100 flex-grow-0 flex-shrink-0 pr-0 pl-6 mt-0'>
-            <Card image={polo1} onTryItNow={handleShowPopup} />
+          <Card
+            product={products.product1}
+            onTryItNow={handleShowPopup}
+            // onAddToCart={handleAddToCart}
+          />
           </div>
         </section>
         {showPopup && <TryItNowCard onClose={handleClosePopup} />}

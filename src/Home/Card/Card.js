@@ -1,39 +1,48 @@
 import React from 'react';
+import "./Card.css";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'; // MUI Shopping Cart Icon
+import SparkIcon from '../../assets/genaicon.png';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'; // Hollow Heart Icon
+import FavoriteIcon from '@mui/icons-material/Favorite'; // Filled Heart Icon
 
-export default function Card({ image, onTryItNow }) {
+export default function Card({ product, onTryItNow, onAddToCart }) {
+  const { image, cost, rating, deliveryDate, title, description, isInWishlist } = product;
+
   return (
-    <div className="max-w-sm bg-white border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <div className="card-container">
+      <div className="wishlist-icon">
+        {isInWishlist ? (
+          <FavoriteIcon className="filled-heart-icon" />
+        ) : (
+          <FavoriteBorderIcon className="hollow-heart-icon" />
+        )}
+      </div>
       <a href="#">
-        <img className="rounded-t-lg" src={image} alt="" />
+        <img className="card-image" src={image} alt={title} />
       </a>
-      <div className="p-5">
-        <a href="#">
-          <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-            Noteworthy technology acquisitions 2021
-          </h5>
-        </a>
-        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-          Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.
-        </p>
-        <a 
-          href="#" 
-          className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mr-2" // Added margin-right
-        >
-          Read more
-          <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
-          </svg>
-        </a>
-        <a 
-          href="#" 
-          onClick={onTryItNow} 
-          className="inline-flex items-center px-3 py-2 mt-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-        >
-          Try It Now
-          <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
-          </svg>
-        </a>
+      <div className="card-content">
+        <div className="card-details">
+          <p className="card-cost">₹{cost}</p>
+          <div className="card-try-it-now" onClick={onTryItNow}>
+            <img src={SparkIcon} alt="Spark Icon" className="custom-spark-icon" />
+            <span>Try It Now</span>
+          </div>
+        </div>
+        <h5 className="card-title">{title}</h5>
+        <p className="card-description">{description}</p>
+        <div className="card-extra">
+          <p className="card-rating">Rating: {rating}★</p>
+          <p className="card-delivery">Delivery by: {deliveryDate}</p>
+        </div>
+        <div className="card-buttons">
+          <a href="#" onClick={onAddToCart} className="card-btn add-to-cart-btn">
+            Add to Cart
+          </a>
+          <a href="#" className="card-btn buy-btn">
+            <ShoppingCartIcon className="cart-icon" />
+            Buy
+          </a>
+        </div>
       </div>
     </div>
   );
