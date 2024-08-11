@@ -1,3 +1,13 @@
+.text-sd-blue-500 {
+    background-image: linear-gradient(to right, rgb(175, 82, 222), rgb(0, 122, 255));
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 600;
+    position: relative;
+    top: 1px;
+}
+
+
 .card-container {
     max-width: 320px;
     background: none;

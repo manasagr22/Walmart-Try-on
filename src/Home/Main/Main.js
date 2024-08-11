@@ -1,11 +1,26 @@
 import React, { useState } from 'react';
 import "./Main.css";
 import Card from '../Card/Card';
-import polo1 from "../../assets/polo1.jpg";
+import img1 from "../../assets/img1.jpg";
+import img2 from "../../assets/img2.jpg"
+import img3 from "../../assets/img3.jpg"
+import img4 from "../../assets/img4.jpg"
+import img5 from "../../assets/img5.jpg"
+import img6 from "../../assets/img6.jpg"
+import img7 from "../../assets/img7.jpg"
+import img8 from "../../assets/img8.jpg"
+import img9 from "../../assets/img9.jpg"
+import img10 from "../../assets/img10.jpg"
+import img11 from "../../assets/img11.jpg"
+import img12 from "../../assets/img12.jpg"
+import img13 from "../../assets/img13.jpg"
 import TryItNowCard from '../Card/TryItNowCard';
+import nextProductBar from "../../assets/nextProducts.png";
+import products from "../../assets/Products/products.json";
 
 export default function Main() {
   const [showPopup, setShowPopup] = useState(false);
+  const imageList = [img1, img2, img3, img4, img5, img6, img7, img8, img9, img10, img11, img12, img13];
 
   const handleShowPopup = () => {
     setShowPopup(true);
@@ -13,19 +28,6 @@ export default function Main() {
 
   const handleClosePopup = () => {
     setShowPopup(false);
-  };
-
-  const products = {
-    product1: {
-      image: polo1,
-      cost: "1499",
-      rating: "4.5",
-      deliveryDate: "25th Aug 2024",
-      title: "Men's Classic Polo Shirt",
-      description: "A stylish and comfortable polo shirt made from high-quality cotton. Perfect for casual wear.",
-      isInWishlist: true
-    },
-    // Add more products as needed
   };
 
   return (
@@ -51,15 +53,16 @@ export default function Main() {
           <span style={{ color: "#2e2f32" }}>Uses external data. Price when purchased online</span>
         </div>
         <section>
-          <div className='flex flex-wrap w-100 flex-grow-0 flex-shrink-0 pr-0 pl-6 mt-0'>
-          <Card
-            product={products.product1}
-            onTryItNow={handleShowPopup}
-            // onAddToCart={handleAddToCart}
-          />
+          <div className='flex flex-wrap w-full flex-grow-0 flex-shrink-0 pr-0 pl-6 mt-0 grid-container'>
+            {products.map(({ price, decimal, type, desc, date, isInWishlist }, index) => (
+              <Card image={imageList[index]} onTryItNow={handleShowPopup} price={price} decimal={decimal} type={type} desc={desc} date={date} isInWishlist={isInWishlist} />
+            ))}
           </div>
         </section>
         {showPopup && <TryItNowCard onClose={handleClosePopup} />}
+      </div>
+      <div className='flex justify-center items-center mt-6 mb-4'>
+        <img src={nextProductBar}/>
       </div>
     </div>
   );
