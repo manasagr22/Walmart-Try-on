@@ -2,6 +2,9 @@
     height: 128px;
     width: 100%;
     background-color: #0071dc;
+    position: sticky;
+    top: 0; /* Ensures the navbar sticks to the top */
+    z-index: 1000; /* Ensures the navbar stays above other content */
 }
 
 .imgLogo {
