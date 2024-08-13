@@ -15,11 +15,16 @@ import img11 from "../../assets/img11.jpg"
 import img12 from "../../assets/img12.jpg"
 import img13 from "../../assets/img13.jpg"
 import TryItNowCard from '../Card/TryItNowCard';
+import ProductDetail from '../Product/ProductDetail';
 import nextProductBar from "../../assets/nextProducts.png";
 import products from "../../assets/Products/products.json";
 
-export default function Main() {
+export default function Main(props) {
   const [showPopup, setShowPopup] = useState(false);
+  const [showProductDetail, setShowProductDetail] = useState(false);
+  const [selectedImage, setSelectedImage] = useState();
+  const [selectedProduct, setSelectedProduct] = useState(null);
+
   const imageList = [img1, img2, img3, img4, img5, img6, img7, img8, img9, img10, img11, img12, img13];
 
   const handleShowPopup = () => {
@@ -28,6 +33,17 @@ export default function Main() {
 
   const handleClosePopup = () => {
     setShowPopup(false);
+  };
+
+  const handleShowProductDetail = (product, image) => {
+    setSelectedImage(image);
+    setSelectedProduct(product);
+    setShowProductDetail(true);
+  };
+
+  const handleCloseProductDetail = () => {
+    setShowProductDetail(false);
+    setSelectedProduct(null);
   };
 
   return (
@@ -54,15 +70,35 @@ export default function Main() {
         </div>
         <section>
           <div className='flex flex-wrap w-full flex-grow-0 flex-shrink-0 pr-0 pl-6 mt-0 grid-container'>
-            {products.map(({ price, decimal, type, desc, date, isInWishlist }, index) => (
-              <Card image={imageList[index]} onTryItNow={handleShowPopup} price={price} decimal={decimal} type={type} desc={desc} date={date} isInWishlist={isInWishlist} />
+            {products.map((product, index) => (
+              <Card
+                key={index}
+                image={imageList[index]}
+                onTryItNow={handleShowPopup}
+                onProductClick={() => handleShowProductDetail(product, imageList[index])}
+                price={product.price}
+                decimal={product.decimal}
+                type={product.type}
+                desc={product.desc}
+                date={product.date}
+                isInWishlist={product.isInWishlist}
+              />
             ))}
           </div>
         </section>
         {showPopup && <TryItNowCard onClose={handleClosePopup} />}
+        {showProductDetail && selectedProduct && (
+          <ProductDetail
+            product={selectedProduct}
+            image = {selectedImage}
+            onClose={handleCloseProductDetail}
+            cartItems={props.cartItems} 
+            setCartItems={props.setCartItems}
+          />
+        )}
       </div>
       <div className='flex justify-center items-center mt-6 mb-4'>
-        <img src={nextProductBar}/>
+        <img src={nextProductBar} />
       </div>
     </div>
   );

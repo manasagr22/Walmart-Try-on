@@ -1,33 +1,145 @@
-import React from 'react';
-import img1 from '../../assets/SampleTryNow.png'
+import React, { useState, useEffect } from 'react';
+import { Button } from '@mui/material';
+import Webcam from 'react-webcam';
+import img1 from '../../assets/SampleTryNow.png';
+import './TryItNowCard.css';
 
 export default function TryItNowCard({ onClose }) {
+  const [step, setStep] = useState(1);
+  const [useWebcam, setUseWebcam] = useState(false);
+  const [capturedImage, setCapturedImage] = useState(null);
+  const [uploadedImage, setUploadedImage] = useState(null);
+  const [isNextDisabled, setIsNextDisabled] = useState(true);
+
+  const handleNextStep = () => {
+    setStep(2);
+  };
+
+  const handleUseCamera = () => {
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then(() => setUseWebcam(true))
+      .catch((error) => {
+        console.error("Permission denied or error occurred:", error);
+      });
+  };
+
+  const handleCapture = (webcamRef) => {
+    const imageSrc = webcamRef.current.getScreenshot();
+    setCapturedImage(imageSrc);
+    setUseWebcam(false); // Turn off webcam after capture
+    setIsNextDisabled(false);
+  };
+
+  const handleUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setUploadedImage(reader.result);
+        setIsNextDisabled(false);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const webcamRef = React.useRef(null);
+
+  useEffect(() => {
+    if (capturedImage || uploadedImage) {
+      setIsNextDisabled(false);
+    } else {
+      setIsNextDisabled(true);
+    }
+  }, [capturedImage, uploadedImage]);
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white p-6 rounded-lg w-11/12 md:w-1/2 lg:w-1/3 relative">
-        {/* Close Button */}
-        <button onClick={onClose} className="absolute top-2 right-2 text-gray-600 hover:text-gray-900">
+    <div className="popup-container">
+      <div className="popup-content">
+        <button onClick={onClose} className="close-button">
           ✕
         </button>
-        <div className="text-center mb-4"> {/* Centering the heading */}
-          <h2 className="text-2xl font-bold mb-4" style={{ fontFamily: 'Arial, sans-serif', color: '#333' }}>
-            Here's Your Look
-          </h2>
-        </div>
-        <div className="overflow-x-scroll flex space-x-4 py-4">
-          {/* Using the imported image */}
-          <img src={img1} alt="Sample User" className="rounded-full" />
-            
-        </div>
-        <div className="flex justify-between items-center mt-4">
-        <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Proceed</button>
-        <div className="flex items-center ml-auto text-blue-500 font-medium">
-            <span className="mr-2">Like your look? Buy it now!</span>
-            <button className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Buy Now</button>
-        </div>
-        </div>
-
-
+        {step === 1 ? (
+          <div className="step-one">
+            <h2 className="popup-heading">Upload your images</h2>
+            <div className="upload-area">
+              <input
+                type="file"
+                accept="image/*"
+                className="file-input"
+                onChange={handleUpload}
+              />
+              <span>or</span>
+              <Button
+                variant="contained"
+                component="label"
+                className="camera-button"
+                onClick={handleUseCamera}
+              >
+                Use Laptop Camera
+              </Button>
+              <div className="vanishing-line" />
+            </div>
+            <div className="image-preview-area">
+              {uploadedImage && <img src={uploadedImage} alt="Uploaded Preview" />}
+              {capturedImage && <img src={capturedImage} alt="Captured Preview" />}
+            </div>
+            {useWebcam && (
+              <div className="webcam-container">
+                <Webcam
+                  audio={false}
+                  ref={webcamRef}
+                  screenshotFormat="image/jpeg"
+                />
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => handleCapture(webcamRef)}
+                  className="capture-button"
+                >
+                  Capture Photo
+                </Button>
+              </div>
+            )}
+            {!useWebcam && (
+              <div className="next-step">
+                {isNextDisabled && (
+                  <span className="warning-text">No image present</span>
+                )}
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleNextStep}
+                  className="next-button"
+                  disabled={isNextDisabled}
+                >
+                  Next
+                </Button>
+              </div>
+            )}
+          </div>
+        ) : (
+          <div className="step-two">
+            <h2 className="popup-heading">Here's Your Look</h2>
+            <div className="centered-image-preview">
+              {capturedImage ? (
+                <img src={capturedImage} alt="Captured Look" className="enlarged-image" />
+              ) : (
+                <img src={img1} alt="Sample User" className="enlarged-image" />
+              )}
+            </div>
+            <div className="actions">
+              <Button variant="contained" color="primary" className="proceed-button">
+                Proceed
+              </Button>
+              <div className="buy-now">
+                <span>Like your look? Buy it now!</span>
+                <Button variant="contained" color="success" className="buy-button">
+                  Buy Now
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -3,7 +3,11 @@ import './SideNav.css';
 import CartCard from '../Card/CartCard';
 
 export default function SideNav({ isOpen, onClose, cartItems }) {
-  const totalCost = cartItems.reduce((total, item) => total + item.cost, 0);
+  // Calculate the total cost considering both the price and decimal part
+  const totalCost = cartItems.reduce(
+    (total, item) => total + parseFloat(item.price + '.' + item.decimal),
+    0
+  );
 
   return (
     <div className={`sidenav ${isOpen ? 'sidenav-open' : ''}`}>
@@ -11,19 +15,16 @@ export default function SideNav({ isOpen, onClose, cartItems }) {
       <div className="sidenav-content">
         <h2>Your Cart</h2>
         <div className="cart-items">
-          {cartItems.map(item => (
-            <CartCard key={item.id} item={item} />
+          {cartItems.map((item, index) => (
+            <CartCard key={index} item={item} />
           ))}
         </div>
       </div>
       <div className="total-section">
-        <a 
-          href="#"
-          className="checkout-btn"
-        >
+        <a href="#" className="checkout-btn">
           Checkout
         </a>
-        <p className="total-cost">Total: ₹{totalCost}</p>
+        <p className="total-cost">Total: ₹{totalCost.toFixed(2)}</p>
       </div>
     </div>
   );

@@ -1,13 +1,12 @@
-import React from 'react'
-import star from "../../assets/star.png"
-import "./Card.css"
+import React from 'react';
+import "./Card.css";
+import star from "../../assets/star.png";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'; // Hollow Heart Icon
 import FavoriteIcon from '@mui/icons-material/Favorite'; // Filled Heart Icon
-import TryItNowCard from './TryItNowCard';
 
 export default function Card(props) {
     return (
-        <div class="max-w-sm bg-white rounded-lg pr-6">
+        <div className="max-w-sm bg-white rounded-lg pr-6">
             <div className="wishlist-icon">
                 {props.isInWishlist ? (
                     <>
@@ -21,9 +20,9 @@ export default function Card(props) {
                     </>
                 )}
             </div>
-            <a href="#">
-                <img class="rounded-t-lg" src={props.image} alt="" style={{ height: "350px", width: "100%" }} />
-            </a>
+            <div onClick={props.onProductClick} style={{ cursor: "pointer" }}>
+                <img className="rounded-t-lg" src={props.image} alt="" style={{ height: "350px", width: "100%" }} />
+            </div>
             <div className="p-5 pl-1">
                 <div className='flex justify-between'>
                     <div>
@@ -36,7 +35,7 @@ export default function Card(props) {
                             <div className='h-6 w-6' style={{ display: "flex", alignItems: "flex-end" }}>
                                 <img src={star} style={{ width: "28px", height: "25px" }} />
                             </div>
-                            <span className='h-6 flex items-center text-sd-blue-500 bg-clip-text' style={{}}>Try Now</span>
+                            <span className='h-6 flex items-center text-sd-blue-500 bg-clip-text'>Try Now</span>
                         </button>
                     </div>
                 </div>
