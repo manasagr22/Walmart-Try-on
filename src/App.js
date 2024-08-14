@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import Navbar from './NavBar/Navbar';
 import Home from './Home/Home';
+import Payment from './Payment/Payment';
 import img1 from './assets/cart_sample1.jpg';
 
 function App() {
@@ -26,6 +27,12 @@ function App() {
           <>
             <Navbar cartItems={cartItems}/>
             <Home cartItems={cartItems} setCartItems={setCartItems} />
+          </>
+        }/>
+        <Route path="/cart" element={
+          <>
+            <Navbar cartItems={cartItems}/>
+            <Payment/>
           </>
         }/>
       </Routes>

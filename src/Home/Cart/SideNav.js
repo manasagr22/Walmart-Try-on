@@ -21,7 +21,10 @@ export default function SideNav({ isOpen, onClose, cartItems }) {
         </div>
       </div>
       <div className="total-section">
-        <a href="#" className="checkout-btn">
+        <a 
+          href="cart"
+          className="checkout-btn"
+        >
           Checkout
         </a>
         <p className="total-cost">Total: ₹{totalCost.toFixed(2)}</p>
