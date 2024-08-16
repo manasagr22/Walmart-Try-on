@@ -5,7 +5,7 @@ export default function CartCard({ item}) {
   
   return (
     <div className="cart-card">
-      <img src={item.image} alt={item.type} className="cart-card-image" />
+      <img src={item.img} alt={item.type} className="cart-card-image" />
       <div className="cart-card-info">
         <h3 className="cart-card-type">{item.type}</h3>
         <p className="cart-card-desc">{item.desc}</p>

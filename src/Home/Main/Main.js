@@ -21,8 +21,8 @@ export default function Main(props) {
     setShowPopup(false);
   };
 
-  const handleShowProductDetail = (product, image) => {
-    setSelectedImage(image);
+  const handleShowProductDetail = (product) => {
+    setSelectedImage(product.img);
     setSelectedProduct(product);
     setShowProductDetail(true);
   };
@@ -59,9 +59,9 @@ export default function Main(props) {
             {products.map((product, index) => (
               <Card
                 key={index}
-                image={imageList[index]}
+                image={product.img}
                 onTryItNow={handleShowPopup}
-                onProductClick={() => handleShowProductDetail(product, imageList[index])}
+                onProductClick={() => handleShowProductDetail(product, product.img)}
                 price={product.price}
                 decimal={product.decimal}
                 type={product.type}

@@ -6,25 +6,22 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import './ProductDetail.css';
 
-export default function ProductDetail({ product, image, onClose, cartItems, setCartItems }) {
-
+export default function ProductDetail({ product, onClose, cartItems, setCartItems }) {
+  console.log("PRoducts  in   [roduct details",  product)
   const handleAddToCart = () => {
+    const existingProduct = cartItems.find(item => item.type === product.type && item.desc === product.desc);
+
+    if (existingProduct) {
+      // If the product is already in the cart, you can decide whether to update its quantity or just return
+      // For simplicity, let's return since the UI does not currently handle quantities
+      return;
+    }
+
+    // If the product is not in the cart, add it
+    setCartItems([...cartItems, { ...product, quantity: 1 }]);
+
+    // Close the product detail popup
     onClose();
-
-    // Check if the product is already in the cart
-    const existingProduct = cartItems.find(item => item.id === product.id);
-    console.log("Exisitng sfw!!", existingProduct)
-
-    // if (existingProduct) {
-    //   // If the product is already in the cart, update the quantity
-    //   setCartItems(cartItems.map(item =>
-    //     item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
-    //   ));
-    // } else {
-      // If the product is not in the cart, add it with the image and quantity 1
-      setCartItems([...cartItems, { ...product, image, quantity: 1 }]);
-      console.log("Adedded newww:, ",cartItems)
-    //}
   };
 
   return (
@@ -35,7 +32,7 @@ export default function ProductDetail({ product, image, onClose, cartItems, setC
         </IconButton>
         <div className="image-gallery">
           <div className="selected-image">
-            <img src={image} alt="Selected Product" />
+            <img src={product.img} alt="Selected Product" />
           </div>
         </div>
         <div className="product-info">

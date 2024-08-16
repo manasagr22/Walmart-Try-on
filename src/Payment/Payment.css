@@ -1,39 +1,202 @@
-.cartBox {
-    box-shadow: 0 0.0625rem 0.125rem 0.0625rem #00000026;
-    border-radius: .5rem;
-    font-family: Bogle, Helvetica Neue, Helvetica, Arial, sans-serif;
-}
-
-.payClass {
-    font-size: 1rem;
-    height: 2.5rem;
-    width: 100%; 
-    background: #0071dc;
-    color: #fff;
-    font-weight: 700;
-    align-items: center;
-    appearance: none;
-    border: 0;
-    border-radius: 62.5rem;
-    cursor: pointer;
-    font-family: Bogle, Helvetica Neue, Helvetica, Arial, sans-serif;
-    justify-content: center;
-    text-decoration: none;
-    transition: all .1s cubic-bezier(.77,0,.175,1);
-    white-space: nowrap;
-}
-
-.Dropdown-placeholder {
+.payment-container {
     display: flex;
-}
-
-.Dropdown-control {
-    width: 13rem;
-}
-
-.divider {
-    border: none;
-    border-top: 0.1px solid #e7e5e5;
-    margin-bottom: 20px;
+    flex-direction: column;
     width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.content-container {
+    width: 80%;
+    height: calc(100vh - 128px);
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.main-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1rem;
+    height: 100%;
+}
+
+.shipping-card {
+    display: flex;
+    flex-direction: column;
+    background-color: #f2f8fd;
+    border-radius: 0.75rem;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    max-height: 400px; /* Adjust this value as needed */
+    overflow: auto; /* Adds a scrollbar if content overflows */
+}
+
+.shipping-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.shipping-text {
+    margin-left: 0.5rem;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #2e2f32;
+}
+
+.product-list {
+    max-height: 400px; /* Adjust based on header size */
+    overflow-y: auto;
+}
+
+.side-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.summary-box {
+    background-color: #ffffff;
+    border-radius: 0.75rem;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+}
+
+.pay-button {
+    background-color: #0071dc;
+    color: #ffffff;
+    font-size: 1.25rem;
+    font-weight: bold;
+    border-radius: 0.75rem;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    height: 50px;
+    transition: background-color 0.3s;
+}
+
+.pay-button:hover {
+    background-color: #005bb5;
+}
+
+.try-on {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.try-on-text {
+    font-weight: 700;
+    margin-right: 1rem;
+}
+
+.payment-method {
+    margin-top: 20px;
+}
+
+.payment-method-option {
+    display: flex;
+    align-items: center;
+}
+
+.payment-method-logo {
+    width: 32px;
+    height: 32px;
+    margin-right: 10px;
+}
+
+.payment-method-label {
+    font-weight: bold;
+}
+
+
+.price-summary {
+    display: flex;
+    flex-direction: column;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
+.summary-label {
+    font-weight: 700;
+    color: #2e2f32;
+}
+
+.summary-value {
+    font-size: 1.125rem;
+    color: #2a8703;
+}
+
+.estimated-total {
+    font-size: 1.25rem;
+}
+
+.estimated-value {
+    font-size: 1.5rem;
+}
+
+.affirm-info {
+    display: flex;
+    align-items: right;
+    margin-top: 1rem;
+}
+
+.affirm-text {
+    font-weight: 700;
+}
+
+.highlight-text {
+    color: #0071dc;
+}
+
+.logo {
+    margin-left: 0.5rem;
+    width: 70px;
+}
+
+.walmart-plus-card {
+    background-color: #f2f8fd;
+    border-radius: 0.75rem;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+}
+
+.walmart-plus-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.walmart-plus-logo {
+    width: 100px;
+    height: auto;
+}
+
+.walmart-plus-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-top: 0.5rem;
+}
+
+.walmart-plus-text {
+    text-align: center;
+    font-size: 1rem;
+    color: #0071dc;
+    margin-top: 0rem;
+}
+
+.trial-info {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.trial-info input[type="checkbox"] {
+    margin-right: 0.5rem;
 }
