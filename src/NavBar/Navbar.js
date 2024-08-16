@@ -79,7 +79,7 @@ export default function Navbar(props) {
                     <div className='flex justify-center items-center'>
                         <PermIdentityIcon sx={{ color: "white", fontWeight: "21px" }} />
                         <div className='flex-col' style={{ marginLeft: "5px" }}>
-                            <p className='text-white size'>Sign In</p>
+                            <p className='text-white size'>Logout</p>
                             <p className='text-white font-bold'>Account</p>
                         </div>
                     </div>

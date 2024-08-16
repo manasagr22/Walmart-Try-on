@@ -28,7 +28,7 @@ export default function TryItNowCard({ product, cartItems, setCartItems, url, on
       setStep(2);
       setSpinnerActive(false);
       setState("Next");
-    }, 1000);
+    }, 10000);
   };
 
   const handleUseCamera = () => {

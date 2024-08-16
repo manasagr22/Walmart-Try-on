@@ -10,6 +10,7 @@ import netBankingLogo from '../assets/Payment_logo/bank.png'; // Add logo for Ne
 import cashLogo from '../assets/Payment_logo/cash.png'; // Add logo for Cash
 import './Payment.css';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import Confetti from 'react-confetti'
 
 export default function Payment(props) {
     const date = "in 2 days";
@@ -32,6 +33,8 @@ export default function Payment(props) {
     const [openPopup, setOpenPopup] = useState(false);
     const [loading, setLoading] = useState(false);
     const [paymentSuccessful, setPaymentSuccessful] = useState(false);
+    const width = window.innerWidth + "px";
+    const height = window.innerHeight + "px";
 
     useEffect(() => {
         if (totalPrice === 0.0) {
@@ -83,12 +86,16 @@ export default function Payment(props) {
         if (paymentSuccessful) {
             setTimeout(() => {
                 navigate('/'); // Navigate to homepage after delay
-            }, 3000); // 3 seconds delay before navigating
+            }, 5000); // 5 seconds delay before navigating
         }
     }, [paymentSuccessful, navigate]);
 
     return (
         <div className='payment-container'>
+            {paymentSuccessful ? <Confetti
+                width={width}
+                height={height}
+            /> : undefined}
             <div className='content-container'>
                 {/* Existing Content */}
                 <div className='flex' style={{ fontSize: "1.5rem", height: "12%" }}>
@@ -162,7 +169,7 @@ export default function Payment(props) {
                                     </RadioGroup>
                                 </FormControl>
                             </div>
-                            <hr className='divider'/>
+                            <hr className='divider' />
                             <div className='price-summary'>
                                 <div className='summary-item'>
                                     <span className='summary-label'>Subtotal <span className='item-count-summary'>({totalProducts} {totalProducts > 1 ? "items" : "item"})</span></span>
@@ -195,33 +202,33 @@ export default function Payment(props) {
 
             {/* Payment Confirmation Popup */}
             <Dialog open={openPopup} onClose={handleClosePopup} aria-labelledby="confirm-payment-dialog">
-    <DialogTitle id="confirm-payment-dialog">
-        {paymentSuccessful ? "Payment Successful" : "Confirm Payment"}
-    </DialogTitle>
-    <DialogContent>
-        {loading ? (
-            <CircularProgress />
-        ) : paymentSuccessful ? (
-            <div className="redirect-message">
-                Payment was successful! Redirecting to homepage...
-            </div>
-        ) : (
-            <div>
-                Are you sure you want to proceed with the payment?
-            </div>
-        )}
-    </DialogContent>
-    {!paymentSuccessful && (
-        <DialogActions>
-            <Button onClick={handleClosePopup} color="primary">
-                Cancel
-            </Button>
-            <Button onClick={handleConfirm} color="primary" autoFocus>
-                Confirm
-            </Button>
-        </DialogActions>
-    )}
-</Dialog>
+                <DialogTitle id="confirm-payment-dialog">
+                    {paymentSuccessful ? "Payment Successful" : "Confirm Payment"}
+                </DialogTitle>
+                <DialogContent>
+                    {loading ? (
+                        <CircularProgress />
+                    ) : paymentSuccessful ? (
+                        <div className="redirect-message">
+                            Payment was successful! Redirecting to homepage...
+                        </div>
+                    ) : (
+                        <div>
+                            Are you sure you want to proceed with the payment?
+                        </div>
+                    )}
+                </DialogContent>
+                {!paymentSuccessful && (
+                    <DialogActions>
+                        <Button onClick={handleClosePopup} color="primary">
+                            Cancel
+                        </Button>
+                        <Button onClick={handleConfirm} color="primary" autoFocus>
+                            Confirm
+                        </Button>
+                    </DialogActions>
+                )}
+            </Dialog>
 
         </div>
     );
