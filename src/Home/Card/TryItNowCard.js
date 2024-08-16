@@ -3,16 +3,33 @@ import { Button } from '@mui/material';
 import Webcam from 'react-webcam';
 import img1 from '../../assets/SampleTryNow.png';
 import './TryItNowCard.css';
+import Spinner from '../Spinner/Spinner';
+import InnerImageZoom from 'react-inner-image-zoom';
+import { Controlled as ControlledZoom } from 'react-medium-image-zoom'
+import 'react-medium-image-zoom/dist/styles.css'
 
-export default function TryItNowCard({ onClose }) {
+export default function TryItNowCard({ url, onClose }) {
   const [step, setStep] = useState(1);
   const [useWebcam, setUseWebcam] = useState(false);
   const [capturedImage, setCapturedImage] = useState(null);
   const [uploadedImage, setUploadedImage] = useState(null);
   const [isNextDisabled, setIsNextDisabled] = useState(true);
+  const [state, setState] = useState("Next");
+  const [spinnerActive, setSpinnerActive] = useState(false);
+  const [isZoomed, setIsZoomed] = useState(false)
+  
+  const handleZoomChange = (shouldZoom) => {
+    setIsZoomed(shouldZoom)
+  }
 
   const handleNextStep = () => {
-    setStep(2);
+    setState("Processing")
+    setSpinnerActive(true);
+    setTimeout(() => {
+      setStep(2);
+      setSpinnerActive(false);
+      setState("Next")
+    }, 1000);
   };
 
   const handleUseCamera = () => {
@@ -60,7 +77,7 @@ export default function TryItNowCard({ onClose }) {
         </button>
         {step === 1 ? (
           <div className="step-one">
-            <h2 className="popup-heading">Upload your images</h2>
+            <h2 className="popup-heading">Upload your image</h2>
             <div className="upload-area">
               <input
                 type="file"
@@ -105,6 +122,7 @@ export default function TryItNowCard({ onClose }) {
                 {isNextDisabled && (
                   <span className="warning-text">No image present</span>
                 )}
+                {spinnerActive ? <Spinner/> : undefined}
                 <Button
                   variant="contained"
                   color="primary"
@@ -112,7 +130,7 @@ export default function TryItNowCard({ onClose }) {
                   className="next-button"
                   disabled={isNextDisabled}
                 >
-                  Next
+                  {state}
                 </Button>
               </div>
             )}
@@ -124,17 +142,21 @@ export default function TryItNowCard({ onClose }) {
               {capturedImage ? (
                 <img src={capturedImage} alt="Captured Look" className="enlarged-image" />
               ) : (
-                <img src={img1} alt="Sample User" className="enlarged-image" />
+                <ControlledZoom isZoomed={isZoomed} onZoomChange={handleZoomChange}>
+                  <img src={url} alt="User" className="enlarged-image" />
+                </ControlledZoom>
               )}
             </div>
             <div className="actions">
-              <Button variant="contained" color="primary" className="proceed-button">
-                Proceed
+              <Button variant="contained" color="primary" className="proceed-button" onClick={() => {
+                setStep(1)
+              }}>
+                  Back
               </Button>
               <div className="buy-now">
                 <span>Like your look? Buy it now!</span>
                 <Button variant="contained" color="success" className="buy-button">
-                  Buy Now
+                  Add to Cart
                 </Button>
               </div>
             </div>

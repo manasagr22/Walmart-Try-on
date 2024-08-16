@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./Main.css";
 import Card from '../Card/Card';
 import TryItNowCard from '../Card/TryItNowCard';
@@ -11,13 +11,20 @@ export default function Main(props) {
   const [showProductDetail, setShowProductDetail] = useState(false);
   const [selectedImage, setSelectedImage] = useState();
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [indexImg, setIndexImg] = useState(0);
 
+  useEffect(() => {
+    if(indexImg != 0) {
+      setShowPopup(true);
+    }
+  }, [indexImg])
 
-  const handleShowPopup = () => {
-    setShowPopup(true);
+  const handleShowPopup = (index) => {
+    setIndexImg(index+1);
   };
 
   const handleClosePopup = () => {
+    setIndexImg(0);
     setShowPopup(false);
   };
 
@@ -60,7 +67,7 @@ export default function Main(props) {
               <Card
                 key={index}
                 image={product.img}
-                onTryItNow={handleShowPopup}
+                onTryItNow={() => handleShowPopup(index)}
                 onProductClick={() => handleShowProductDetail(product, product.img)}
                 price={product.price}
                 decimal={product.decimal}
@@ -72,7 +79,7 @@ export default function Main(props) {
             ))}
           </div>
         </section>
-        {showPopup && <TryItNowCard onClose={handleClosePopup} />}
+        {showPopup && <TryItNowCard url={"/images/output/img" + indexImg + ".png"} onClose={handleClosePopup} />}
         {showProductDetail && selectedProduct && (
           <ProductDetail
             product={selectedProduct}

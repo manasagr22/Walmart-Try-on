@@ -1,6 +1,7 @@
 import React from 'react';
 import './SideNav.css';
 import CartCard from '../Card/CartCard';
+import { Link } from 'react-router-dom';
 
 export default function SideNav({ isOpen, onClose, cartItems }) {
   // Calculate the total cost considering both the price and decimal part
@@ -21,12 +22,12 @@ export default function SideNav({ isOpen, onClose, cartItems }) {
         </div>
       </div>
       <div className="total-section">
-        <a 
-          href="cart"
+        <Link 
+          to="cart"
           className="checkout-btn"
         >
           Checkout
-        </a>
+        </Link>
         <p className="total-cost">Total: ${totalCost.toFixed(2)}</p>
       </div>
     </div>

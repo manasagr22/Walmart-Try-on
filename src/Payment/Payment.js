@@ -160,10 +160,10 @@ export default function Payment(props) {
                                     <span className='summary-label'>Shipping:</span>
                                     <span className='summary-value'>Free</span>
                                 </div>
-                                <div className='summary-item'>
+                                {/* <div className='summary-item'>
                                     <span className='summary-label'>Taxes:</span>
                                     <span className='summary-value'>Calculated at checkout</span>
-                                </div>
+                                </div> */}
                                 <hr className='divider'/>
                                 <div className='summary-item'>
                                     <span className='summary-label estimated-total'>Estimated Total:</span>
@@ -175,13 +175,13 @@ export default function Payment(props) {
                                 </div>
                             </div>
                         </div>
-                        <div className='walmart-plus-card'>
+                        {/* <div className='walmart-plus-card'>
                             <img src={walmartPlusLogo} alt="Walmart+ Logo" className='walmart-plus-logo' />
                             <div className='walmart-plus-info'>
                                 <span className='walmart-plus-title'>Get Free Delivery with Walmart+</span>
                                 <span className='walmart-plus-details'>Add Walmart+ to your cart for free delivery</span>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>

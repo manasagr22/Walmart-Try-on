@@ -6,6 +6,7 @@
     align-items: center;
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.5);
+    margin-top: 5rem;
 }
 
 .popup-content {
@@ -51,6 +52,7 @@
 
 .file-input {
     margin-bottom: 10px;
+    width: 13rem;
 }
 
 .camera-button {
@@ -128,7 +130,7 @@
 }
 
 .enlarged-image {
-    max-width: 100%;
+    max-width: 50%;
     height: auto;
     display: block;
     margin: 0 auto;
