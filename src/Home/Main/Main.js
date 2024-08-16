@@ -20,8 +20,10 @@ export default function Main(props) {
   }, [indexImg])
 
   const handleShowPopup = (index) => {
-    setIndexImg(index+1);
+    setIndexImg(index + 1);
+    setSelectedProduct(products[index]); // Set the selected product based on the index
   };
+  
 
   const handleClosePopup = () => {
     setIndexImg(0);
@@ -79,7 +81,15 @@ export default function Main(props) {
             ))}
           </div>
         </section>
-        {showPopup && <TryItNowCard url={"/images/output/img" + indexImg + ".png"} onClose={handleClosePopup} />}
+        {showPopup && (
+          <TryItNowCard
+            product={selectedProduct} // Now selectedProduct is set correctly
+            setCartItems={props.setCartItems}
+            cartItems={props.cartItems}
+            url={"/images/output/img" + indexImg + ".png"}
+            onClose={handleClosePopup}
+          />
+        )}
         {showProductDetail && selectedProduct && (
           <ProductDetail
             product={selectedProduct}

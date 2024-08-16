@@ -4,11 +4,10 @@ import Webcam from 'react-webcam';
 import img1 from '../../assets/SampleTryNow.png';
 import './TryItNowCard.css';
 import Spinner from '../Spinner/Spinner';
-import InnerImageZoom from 'react-inner-image-zoom';
-import { Controlled as ControlledZoom } from 'react-medium-image-zoom'
-import 'react-medium-image-zoom/dist/styles.css'
+import { Controlled as ControlledZoom } from 'react-medium-image-zoom';
+import 'react-medium-image-zoom/dist/styles.css';
 
-export default function TryItNowCard({ url, onClose }) {
+export default function TryItNowCard({ product, cartItems, setCartItems, url, onClose }) {
   const [step, setStep] = useState(1);
   const [useWebcam, setUseWebcam] = useState(false);
   const [capturedImage, setCapturedImage] = useState(null);
@@ -16,19 +15,19 @@ export default function TryItNowCard({ url, onClose }) {
   const [isNextDisabled, setIsNextDisabled] = useState(true);
   const [state, setState] = useState("Next");
   const [spinnerActive, setSpinnerActive] = useState(false);
-  const [isZoomed, setIsZoomed] = useState(false)
-  
+  const [isZoomed, setIsZoomed] = useState(false);
+
   const handleZoomChange = (shouldZoom) => {
-    setIsZoomed(shouldZoom)
-  }
+    setIsZoomed(shouldZoom);
+  };
 
   const handleNextStep = () => {
-    setState("Processing")
+    setState("Processing");
     setSpinnerActive(true);
     setTimeout(() => {
       setStep(2);
       setSpinnerActive(false);
-      setState("Next")
+      setState("Next");
     }, 1000);
   };
 
@@ -57,6 +56,14 @@ export default function TryItNowCard({ url, onClose }) {
       };
       reader.readAsDataURL(file);
     }
+  };
+
+  const handleAddToCart = () => {
+    // Add the product to cart
+    setCartItems([...cartItems, product]);
+
+    // Close the popup
+    onClose();
   };
 
   const webcamRef = React.useRef(null);
@@ -122,7 +129,7 @@ export default function TryItNowCard({ url, onClose }) {
                 {isNextDisabled && (
                   <span className="warning-text">No image present</span>
                 )}
-                {spinnerActive ? <Spinner/> : undefined}
+                {spinnerActive ? <Spinner /> : undefined}
                 <Button
                   variant="contained"
                   color="primary"
@@ -149,13 +156,13 @@ export default function TryItNowCard({ url, onClose }) {
             </div>
             <div className="actions">
               <Button variant="contained" color="primary" className="proceed-button" onClick={() => {
-                setStep(1)
+                setStep(1);
               }}>
-                  Back
+                Back
               </Button>
               <div className="buy-now">
                 <span>Like your look? Buy it now!</span>
-                <Button variant="contained" color="success" className="buy-button">
+                <Button variant="contained" color="success" className="buy-button" onClick={handleAddToCart}>
                   Add to Cart
                 </Button>
               </div>

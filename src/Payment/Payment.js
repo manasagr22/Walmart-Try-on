@@ -9,9 +9,11 @@ import creditCardLogo from '../assets/Payment_logo/card.png'; // Add logo for Cr
 import netBankingLogo from '../assets/Payment_logo/bank.png'; // Add logo for Net Banking
 import cashLogo from '../assets/Payment_logo/cash.png'; // Add logo for Cash
 import './Payment.css';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 export default function Payment(props) {
     const date = "in 2 days";
+    const navigate = useNavigate(); // Initialize useNavigate
 
     const [totalProducts, setTotalProducts] = useState(props.cartItems.length);
     const [totalPrice, setTotalPrice] = useState(0.0);
@@ -73,8 +75,18 @@ export default function Payment(props) {
             setLoading(false);
             setPaymentSuccessful(true);
             setOpenPopup(false); // Close the confirmation popup
+            props.setCartItems([]); // Clear the cart items
         }, 3000); // 3 seconds loading
     };
+
+    useEffect(() => {
+        if (paymentSuccessful) {
+            setTimeout(() => {
+                navigate('/'); // Navigate to homepage after delay
+            }, 3000); // 3 seconds delay before navigating
+        }
+    }, [paymentSuccessful, navigate]);
+
     return (
         <div className='payment-container'>
             <div className='content-container'>
@@ -164,71 +176,53 @@ export default function Payment(props) {
                                     <span className='summary-label'>Taxes:</span>
                                     <span className='summary-value'>Calculated at checkout</span>
                                 </div> */}
-                                <hr className='divider'/>
                                 <div className='summary-item'>
-                                    <span className='summary-label estimated-total'>Estimated Total:</span>
-                                    <span className='summary-value estimated-value'>${totalPrice}</span>
-                                </div>
-                                <div className='affirm-info'>
-                                    <span className='affirm-text'>As low as <span className='highlight-text'>$2/mo</span></span>
-                                    <img src={logo} alt="Affirm Logo" className="logo" />
+                                    <span className='summary-label'>Total:</span>
+                                    <span className='summary-value'>${totalPrice}</span>
                                 </div>
                             </div>
                         </div>
-                        {/* <div className='walmart-plus-card'>
-                            <img src={walmartPlusLogo} alt="Walmart+ Logo" className='walmart-plus-logo' />
-                            <div className='walmart-plus-info'>
-                                <span className='walmart-plus-title'>Get Free Delivery with Walmart+</span>
-                                <span className='walmart-plus-details'>Add Walmart+ to your cart for free delivery</span>
+                        <div className='walmart-plus'>
+                            <img src={walmartPlusLogo} alt="Walmart Plus" className='walmart-plus-logo' />
+                            <div className='walmart-plus-text'>
+                                <span>Walmart+</span>
+                                <span className='walmart-plus-benefit'>Free Shipping</span>
                             </div>
-                        </div> */}
+                        </div>
                     </div>
                 </div>
             </div>
 
-            {/* Popup for Confirming Payment */}
-            <Dialog open={openPopup} onClose={handleClosePopup}>
-                <DialogTitle>Confirm Your Order</DialogTitle>
-                <DialogContent>
-                    {loading ? (
-                        <div className="loading-container">
-                            <CircularProgress />
-                        </div>
-                    ) : (
-                        <div>
-                            <p>Are you sure you want to place this order?</p>
-                            <p>Payment Method: {selectedPaymentMethod}</p>
-                        </div>
-                    )}
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClosePopup} color="primary">
-                        Cancel
-                    </Button>
-                    <Button
-                        onClick={handleConfirm}
-                        color="primary"
-                        disabled={loading}
-                    >
-                        {loading ? "Processing..." : "Confirm"}
-                    </Button>
-                </DialogActions>
-            </Dialog>
+            {/* Payment Confirmation Popup */}
+            <Dialog open={openPopup} onClose={handleClosePopup} aria-labelledby="confirm-payment-dialog">
+    <DialogTitle id="confirm-payment-dialog">
+        {paymentSuccessful ? "Payment Successful" : "Confirm Payment"}
+    </DialogTitle>
+    <DialogContent>
+        {loading ? (
+            <CircularProgress />
+        ) : paymentSuccessful ? (
+            <div className="redirect-message">
+                Payment was successful! Redirecting to homepage...
+            </div>
+        ) : (
+            <div>
+                Are you sure you want to proceed with the payment?
+            </div>
+        )}
+    </DialogContent>
+    {!paymentSuccessful && (
+        <DialogActions>
+            <Button onClick={handleClosePopup} color="primary">
+                Cancel
+            </Button>
+            <Button onClick={handleConfirm} color="primary" autoFocus>
+                Confirm
+            </Button>
+        </DialogActions>
+    )}
+</Dialog>
 
-            {/* Success Popup */}
-            {paymentSuccessful && (
-                <Dialog open={paymentSuccessful} onClose={() => setPaymentSuccessful(false)}>
-                    <DialogTitle>Payment Successful</DialogTitle>
-                    <DialogContent>
-                        <p>Thank you for your purchase!</p>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={() => setPaymentSuccessful(false)} color="primary">
-                            Close
-                        </Button>
-                    </DialogActions>
-                </Dialog>
-            )}
         </div>
     );
 }

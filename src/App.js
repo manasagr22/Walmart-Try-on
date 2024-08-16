@@ -9,15 +9,15 @@ import img from  './assets/img14.png';
 function App() {
   // Define and initialize the cartItems state with a default value
   const [cartItems, setCartItems] = useState([
-    {
-      img: img,
-      date: "in 2 days", // Update to reflect delivery information
-      price: "20", // Price as a string
-      decimal: "00", // Decimal part of the price
-      desc: "Anime oversized Tshirt, Naruto Shippuden Tshirt", // Description of the product
-      isInWishlist: true, // Wishlist status
-      type: "Anime Oversized", // Product type
-    },
+    // {
+    //   img: img,
+    //   date: "in 2 days", // Update to reflect delivery information
+    //   price: "20", // Price as a string
+    //   decimal: "00", // Decimal part of the price
+    //   desc: "Anime oversized Tshirt, Naruto Shippuden Tshirt", // Description of the product
+    //   isInWishlist: true, // Wishlist status
+    //   type: "Anime Oversized", // Product type
+    // },
   ]);
 
   return (
@@ -32,7 +32,7 @@ function App() {
         <Route path="/cart" element={
           <>
             <Navbar cartItems={cartItems}/>
-            <Payment cartItems={cartItems}/>
+            <Payment cartItems={cartItems} setCartItems={setCartItems}/>
           </>
         }/>
       </Routes>

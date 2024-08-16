@@ -10,6 +10,10 @@ export default function SideNav({ isOpen, onClose, cartItems }) {
     0
   );
 
+  const handleCheckoutClick = () => {
+    onClose(); // Close the SideNav
+  };
+
   return (
     <div className={`sidenav ${isOpen ? 'sidenav-open' : ''}`}>
       <button onClick={onClose} className="close-btn">✕</button>
@@ -25,6 +29,7 @@ export default function SideNav({ isOpen, onClose, cartItems }) {
         <Link 
           to="cart"
           className="checkout-btn"
+          onClick={handleCheckoutClick} // Close SideNav on Checkout click
         >
           Checkout
         </Link>
